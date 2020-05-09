@@ -3,11 +3,15 @@ import App from './App.vue'
 import CarbonComponentsVue from '@carbon/vue'
 import './styles/_carbon.scss'
 import Router from './router';
+import Apollo from './apollo';
 
 Vue.use(CarbonComponentsVue)
 Vue.config.productionTip = false
 
+
 new Vue({
+  el: '#app',
+  apolloProvider: Apollo,
   router: Router,
   render: h => h(App),
   watch: {

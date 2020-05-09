@@ -1,5 +1,5 @@
 <template>
-    <cv-content id="footer">
+    <cv-content id="footer" style="margin-top: auto;">
         <div class="bx--grid bx--grid--full-width">
             <div class="bx--row bx--spacing-margin-bottom-06">
                 <div class="bx--col-sm-16 bx--col-md-8 bx--col-lg-8 bx--col-xlg-8 bx--col-max-8">
