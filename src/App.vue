@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <cv-loading :active="isLoading()" :overlay="true"></cv-loading>
+        <cv-loading :active="this.$store.state.dataLoading" :overlay="true"></cv-loading>
         <Header/>
         <router-view/>
         <Footer/>
@@ -15,19 +15,8 @@
 <script>
     import Header from "@/components/Header";
     import Footer from "@/components/Footer";
-    import {loading} from "@/services/loading.service";
 
     export default {
         components: {Footer, Header},
-        data() {
-            return {
-                overlayLoading: this.isLoading(),
-            }
-        },
-        methods: {
-            isLoading() {
-                return loading;
-            }
-        }
     }
 </script>

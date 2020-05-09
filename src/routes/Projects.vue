@@ -2,7 +2,13 @@
     <cv-content>
         <div class="bx--grid bx--grid--full-width">
             <div class="bx--row">
-                <div class="bx--col-sm-8 bx--col-md-8 bx--col-lg-8 bx--col-xlg-8 bx--offset-sm-7 bx--offset-md-7 bx--offset-lg-7 bx--offset-xlg-7" v-if="!this.$apollo.loading">
+                <div class="bx--col-sm-8 bx--col-md-8 bx--col-lg-8 bx--col-xlg-8 bx--offset-sm-4 bx--offset-md-4 bx--offset-lg-4 bx--offset-xlg-4 bx--spacing-margin-top-06">
+                    <cv-inline-notification
+                            :low-contrast="true"
+                            :kind="'warning'"
+                            :title="'Hey there!'"
+                            :sub-title="'I got sick of writing in Vue because it\'s quirky and kinda annoying at the moment. I\'m leaving this site as my playground for now'"
+                        ></cv-inline-notification>
                 </div>
             </div>
         </div>
@@ -11,17 +17,10 @@
 
 <script lang="js">
     import gql from "graphql-tag";
-    import {setLoading} from "@/services/loading.service";
 
     export default {
         name: "Repos",
         apollo: {
-            viewer: gql`query {
-                viewer {
-                    name
-                    login
-                }
-            }`,
             user: {
                 query: gql`query GetProjects {
   user(login: "Bitforger") {
@@ -31,6 +30,7 @@
         ... on Repository {
           id
           name
+          description
           isPrivate
           isArchived
           isFork
@@ -56,6 +56,7 @@
         isFork
         isTemplate
         name
+        description
         owner {
           login
           id
@@ -70,18 +71,26 @@
       }
     }
   }
-}`
+}`,
+                loadingKey: 'loading'
             }
         },
         data() {
             return {
                 test: 'test',
                 user: '',
+                loading: 0
             }
         },
-        mounted() {
-            setLoading(this.$apollo.loading);
-            console.log(this.user);
+        methods: {
+        },
+        watch: {
+            loading(val) {
+                const isLoading = !!val;
+                console.log(isLoading);
+                this.$store.commit(isLoading ? 'dataIsLoading' : 'dataStoppedLoading');
+                return isLoading;
+            }
         }
     }
 </script>
